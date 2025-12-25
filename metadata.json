@@ -1,0 +1,7 @@
+{
+  "name": "Wanderlust AI - Intelligent Travel Agent",
+  "description": "A comprehensive AI travel planner that generates detailed itineraries, provides immersive tour guide narrations for sub-spots, and offers creative travel solutions.",
+  "requestFramePermissions": [
+    "geolocation"
+  ]
+}
