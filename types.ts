@@ -27,6 +27,7 @@ export interface LocationCard {
   type: 'Attraction' | 'Restaurant' | 'Hotel' | 'Shopping' | 'Entertainment';
   description: string;
   recommendedDuration: string;
+  timeSlot: string; // e.g., "09:00 - 11:30"
   cost: string; // e.g., "150 CNY (Ticket)" or "80 CNY (Avg. per person)"
   transportToNext?: TransportLeg;
   subSpots?: SubSpot[]; 

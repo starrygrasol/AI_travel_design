@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { DayItinerary, LocationCard, TransportLeg } from '../types';
-import { Sun, CloudRain, Wind, MapPin, Navigation, ChevronRight, ArrowDown, Wallet, BedDouble, Moon } from './Icons';
+import { Sun, CloudRain, Wind, MapPin, Navigation, ChevronRight, ArrowDown, Wallet, BedDouble, Moon, Clock } from './Icons';
 
 interface Props {
   days: DayItinerary[];
@@ -72,7 +72,13 @@ export const ItineraryTimeline: React.FC<Props> = ({ days, onLocationClick }) =>
                   
                   {/* Time / Transport Info (Left Side on Desktop) */}
                   <div className="md:w-1/2 md:text-right md:pr-8 mb-2 md:mb-0">
-                    {/* Only needed for layout balance on desktop */}
+                    <div className="hidden md:flex flex-col items-end">
+                       {activity.timeSlot && (
+                         <div className="text-sm font-bold text-slate-700 bg-white px-2 py-1 rounded border border-slate-100 shadow-sm mb-1">
+                           {activity.timeSlot}
+                         </div>
+                       )}
+                    </div>
                   </div>
 
                   {/* Center Node */}
@@ -87,9 +93,18 @@ export const ItineraryTimeline: React.FC<Props> = ({ days, onLocationClick }) =>
                       className="bg-white p-5 rounded-2xl shadow-sm border border-slate-100 hover:shadow-xl hover:border-indigo-200 transition-all cursor-pointer group-hover:-translate-y-1"
                     >
                       <div className="flex justify-between items-start mb-2">
-                        <span className="text-xs font-bold px-2 py-1 rounded bg-slate-100 text-slate-500 uppercase tracking-wide">
-                          {activity.type}
-                        </span>
+                        <div className="flex flex-col gap-1">
+                          <span className="text-xs font-bold px-2 py-1 rounded bg-slate-100 text-slate-500 uppercase tracking-wide w-fit">
+                            {activity.type}
+                          </span>
+                          {/* Mobile Time Slot */}
+                          {activity.timeSlot && (
+                            <span className="md:hidden text-xs font-semibold text-slate-600 flex items-center gap-1">
+                              <Clock size={12} /> {activity.timeSlot}
+                            </span>
+                          )}
+                        </div>
+
                         <div className="flex items-center gap-3">
                            <span className="text-xs text-slate-400">
                              {activity.recommendedDuration}
@@ -132,7 +147,7 @@ export const ItineraryTimeline: React.FC<Props> = ({ days, onLocationClick }) =>
                  <div className="md:flex items-center justify-between gap-8 relative z-10 group">
                   
                   <div className="md:w-1/2 md:text-right md:pr-8 mb-2 md:mb-0">
-                     <span className="inline-flex items-center gap-2 text-slate-500 text-sm font-medium">
+                     <span className="inline-flex items-center gap-2 text-slate-500 text-sm font-medium justify-end w-full">
                        <Moon size={16} /> End of Day
                      </span>
                   </div>

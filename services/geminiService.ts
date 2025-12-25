@@ -41,9 +41,10 @@ export const generateItinerary = async (
     Requirements:
     1. Weather: Consider historical/forecast weather. Give clothing advice.
     2. Route: Connect locations logically.
-    3. Cost: You MUST estimate the specific cost for EACH activity (ticket price) and meal (avg per person). Also estimate transport costs.
-    4. Accommodation: You MUST recommend a specific hotel/hostel for EACH night based on the budget. Include the estimated cost per night.
-    5. Transport: Provide 'transportToNext' detailing how to get to the *next* activity (Mode, Duration, Cost).
+    3. Time Management: You MUST calculate specific time slots (e.g., "09:00 - 11:30") for EACH activity based on the Pace start time and travel time between spots.
+    4. Cost: You MUST estimate the specific cost for EACH activity (ticket price) and meal (avg per person). Also estimate transport costs.
+    5. Accommodation: You MUST recommend a specific hotel/hostel for EACH night based on the budget. Include the estimated cost per night.
+    6. Transport: Provide 'transportToNext' detailing how to get to the *next* activity (Mode, Duration, Cost).
     
     Return a JSON object following the schema.
   `;
@@ -66,10 +67,11 @@ export const generateItinerary = async (
       type: { type: Type.STRING, enum: ['Attraction', 'Restaurant', 'Shopping', 'Entertainment'] },
       description: { type: Type.STRING, description: "Brief overview" },
       recommendedDuration: { type: Type.STRING },
+      timeSlot: { type: Type.STRING, description: "Specific time range (e.g. 09:00 - 11:30)" },
       cost: { type: Type.STRING, description: "Estimated cost (e.g. 150 CNY Ticket or 80 CNY Meal)" },
       transportToNext: { ...transportSchema, nullable: true }
     },
-    required: ["id", "name", "type", "description", "cost"]
+    required: ["id", "name", "type", "description", "cost", "timeSlot"]
   };
 
   const accommodationSchema: Schema = {

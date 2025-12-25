@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { TravelInput } from '../types';
-import { MapPin, Calendar, Wallet, Sparkles, Clock, Heart, Globe } from './Icons';
+import { MapPin, Calendar, Wallet, Sparkles, Clock, Heart, Globe, Plus, X } from './Icons';
 
 interface Props {
   onSubmit: (data: TravelInput) => void;
@@ -17,6 +17,7 @@ export const InputForm: React.FC<Props> = ({ onSubmit, isLoading }) => {
     pace: 'moderate',
     interests: []
   });
+  const [customInterest, setCustomInterest] = useState('');
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -31,6 +32,30 @@ export const InputForm: React.FC<Props> = ({ onSubmit, isLoading }) => {
         : [...prev.interests, interest]
     }));
   };
+
+  const addCustomInterest = () => {
+    if (customInterest.trim() && !data.interests.includes(customInterest.trim())) {
+      setData(prev => ({
+        ...prev,
+        interests: [...prev.interests, customInterest.trim()]
+      }));
+      setCustomInterest('');
+    }
+  };
+
+  const handleCustomInterestKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      addCustomInterest();
+    }
+  };
+
+  const defaultInterests = [
+    { id: 'food', label: data.language === 'zh' ? '美食探店 (必吃榜)' : 'Foodie (Must-Eat List)' },
+    { id: 'nature', label: data.language === 'zh' ? '自然风光' : 'Nature' },
+    { id: 'culture', label: data.language === 'zh' ? '人文历史' : 'Culture & History' },
+    { id: 'shopping', label: data.language === 'zh' ? '购物逛街' : 'Shopping' }
+  ];
 
   return (
     <div className="w-full max-w-2xl mx-auto p-8 bg-white rounded-2xl shadow-xl border border-slate-100 mb-10">
@@ -168,15 +193,11 @@ export const InputForm: React.FC<Props> = ({ onSubmit, isLoading }) => {
         {/* Interest Selection */}
         <div>
           <label className="block text-sm font-medium text-slate-700 mb-2 flex items-center gap-2">
-            <Heart size={16} /> {data.language === 'zh' ? '偏好 (多选)' : 'Interests'}
+            <Heart size={16} /> {data.language === 'zh' ? '偏好 (多选 & 自定义)' : 'Interests'}
           </label>
-          <div className="flex flex-wrap gap-2">
-            {[
-              { id: 'food', label: data.language === 'zh' ? '美食探店 (必吃榜)' : 'Foodie (Must-Eat List)' },
-              { id: 'nature', label: data.language === 'zh' ? '自然风光' : 'Nature' },
-              { id: 'culture', label: data.language === 'zh' ? '人文历史' : 'Culture & History' },
-              { id: 'shopping', label: data.language === 'zh' ? '购物逛街' : 'Shopping' }
-            ].map((interest) => (
+          <div className="flex flex-wrap gap-2 mb-3">
+            {/* Render Default Options */}
+            {defaultInterests.map((interest) => (
               <button
                 key={interest.id}
                 type="button"
@@ -190,6 +211,42 @@ export const InputForm: React.FC<Props> = ({ onSubmit, isLoading }) => {
                 {interest.label}
               </button>
             ))}
+            
+            {/* Render Custom User Interests */}
+            {data.interests.filter(i => !['food', 'nature', 'culture', 'shopping'].includes(i)).map((customInt) => (
+               <div
+                key={customInt}
+                className="py-2 px-4 rounded-full text-sm font-medium border bg-rose-50 border-rose-500 text-rose-700 flex items-center gap-2"
+              >
+                {customInt}
+                <button 
+                  type="button"
+                  onClick={() => toggleInterest(customInt)}
+                  className="hover:text-rose-900"
+                >
+                  <X size={14} />
+                </button>
+              </div>
+            ))}
+          </div>
+
+          {/* Custom Interest Input */}
+          <div className="flex gap-2">
+            <input 
+              type="text" 
+              value={customInterest}
+              onChange={(e) => setCustomInterest(e.target.value)}
+              onKeyDown={handleCustomInterestKeyDown}
+              placeholder={data.language === 'zh' ? "添加自定义偏好 (如: 徒步, 二次元)" : "Add custom interest (e.g. Hiking, Anime)"}
+              className="flex-1 px-4 py-2 rounded-xl border border-slate-200 text-sm focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 outline-none"
+            />
+            <button 
+              type="button"
+              onClick={addCustomInterest}
+              className="bg-slate-100 hover:bg-slate-200 text-slate-600 p-2 rounded-xl transition-colors"
+            >
+              <Plus size={20} />
+            </button>
           </div>
         </div>
 
