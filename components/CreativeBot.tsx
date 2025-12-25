@@ -46,7 +46,7 @@ export const CreativeBot: React.FC<Props> = ({ destination, language = 'en' }) =
         <form onSubmit={handleAsk} className="flex gap-2">
           <input
             type="text"
-            className="flex-1 p-4 rounded-xl outline-none text-slate-700 placeholder:text-slate-400"
+            className="flex-1 p-4 rounded-xl outline-none text-slate-900 placeholder:text-slate-400 bg-white"
             placeholder={language === 'zh' ? "例如：自来水能直接喝吗？" : "e.g., Is tap water safe to drink?"}
             value={query}
             onChange={(e) => setQuery(e.target.value)}

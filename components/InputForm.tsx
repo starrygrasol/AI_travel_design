@@ -101,7 +101,7 @@ export const InputForm: React.FC<Props> = ({ onSubmit, isLoading }) => {
               required
               type="text"
               placeholder={data.language === 'zh' ? "例如：杭州, 浙江" : "e.g., Hangzhou, China"}
-              className="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 transition-all outline-none"
+              className="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 transition-all outline-none bg-white text-slate-900"
               value={data.destination}
               onChange={(e) => setData({ ...data, destination: e.target.value })}
             />
@@ -118,7 +118,7 @@ export const InputForm: React.FC<Props> = ({ onSubmit, isLoading }) => {
               <input
                 required
                 type="date"
-                className="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 transition-all outline-none"
+                className="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 transition-all outline-none bg-white text-slate-900"
                 value={data.startDate}
                 onChange={(e) => setData({ ...data, startDate: e.target.value })}
               />
@@ -133,7 +133,7 @@ export const InputForm: React.FC<Props> = ({ onSubmit, isLoading }) => {
               <input
                 required
                 type="date"
-                className="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 transition-all outline-none"
+                className="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 transition-all outline-none bg-white text-slate-900"
                 value={data.endDate}
                 onChange={(e) => setData({ ...data, endDate: e.target.value })}
               />
@@ -151,7 +151,7 @@ export const InputForm: React.FC<Props> = ({ onSubmit, isLoading }) => {
               required
               type="text"
               placeholder={data.language === 'zh' ? "例如：5000元 (不含往返大交通)" : "e.g., 5000 CNY (Excl. arrival travel)"}
-              className="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 transition-all outline-none"
+              className="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 transition-all outline-none bg-white text-slate-900"
               value={data.budget}
               onChange={(e) => setData({ ...data, budget: e.target.value })}
             />
@@ -238,7 +238,7 @@ export const InputForm: React.FC<Props> = ({ onSubmit, isLoading }) => {
               onChange={(e) => setCustomInterest(e.target.value)}
               onKeyDown={handleCustomInterestKeyDown}
               placeholder={data.language === 'zh' ? "添加自定义偏好 (如: 徒步, 二次元)" : "Add custom interest (e.g. Hiking, Anime)"}
-              className="flex-1 px-4 py-2 rounded-xl border border-slate-200 text-sm focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 outline-none"
+              className="flex-1 px-4 py-2 rounded-xl border border-slate-200 text-sm focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 outline-none bg-white text-slate-900"
             />
             <button 
               type="button"
